@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <iostream> 
+#include <conio.h> 
 struct no{ int valor; struct no *pro;};
 struct listaSimples{ struct no *ini; };
 
@@ -11,6 +13,7 @@ void excluirInicio(struct listaSimples *inicio);
 void excluirEspecifico(struct listaSimples *inicio,int v);
 void pesquisar(struct listaSimples *inicio,int v);
 void alterar(struct listaSimples *inicio,int va,int vn);
+void linhas();
 
 int main(void) { 
 struct listaSimples *adm_lista;
@@ -18,15 +21,19 @@ struct listaSimples *adm_lista;
  adm_lista->ini = NULL; 
  int op = -2; 
  int v,vn;
-
+linhas();printf("\xDC");printf("\xDC");
+printf("\n\xDB ---------MENU-------- \xDB\n"); 
+printf("\xDB 1- Adicionar          \xDB\n\xDB 2- Excluir o primeiro \xDB\n\xDB 3- Mostra lista       \xDB\n"); 
+printf("\xDB 4- Alterar valor      \xDB\n\xDB 5- Pesquisar valor    \xDB\n\xDB 6- Excluir especifico \xDB\n"); 
+printf("\xDB 0- Sair               \xDB\n\xDB");
+linhas();printf("\xDB\n\n");
 while (op!=0){ 
-printf("\n---------MENU--------\n"); 
-printf("1- Adicionar\n2- Excluir o primeiro\n3- Mostra lista\n"); 
-printf("4- Alterar valor\n5- Pesquisar valor\n6- Excluir especifico\n"); 
-printf("0- Sair\n");
+
 printf("Opcao:"); 
 scanf("%d",&op); 
+
 switch(op){
+
  case 1: 
 	 printf("Informe o valor que sera incluso na lista: "); 
 	 scanf("%d",&v); 
@@ -172,4 +179,13 @@ void excluirEspecifico(struct listaSimples *inicio,int v){
 	 p->pro = excluir->pro;
 	  free(excluir);
  }}
-
+ 
+ 
+ void linhas(){
+ 	int i=0;
+ 	do{
+ 		printf("\xDC");
+ 		i++;
+	 }while(i<23);
+ 	
+ }
