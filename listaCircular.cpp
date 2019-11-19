@@ -13,6 +13,7 @@ void excluirInicio(struct listaSimples *inicio);
 void excluirEspecifico(struct listaSimples *inicio,int v);
 void pesquisar(struct listaSimples *inicio,int v);
 void alterar(struct listaSimples *inicio,int va,int vn);
+void excluirFim(struct listaSimples *inicio);
 void linhas();
 
 int main(void) { 
@@ -25,7 +26,7 @@ linhas();printf("\xDC");printf("\xDC");
 printf("\n\xDB ---------MENU-------- \xDB\n"); 
 printf("\xDB 1- Adicionar          \xDB\n\xDB 2- Excluir o primeiro \xDB\n\xDB 3- Mostra lista       \xDB\n"); 
 printf("\xDB 4- Alterar valor      \xDB\n\xDB 5- Pesquisar valor    \xDB\n\xDB 6- Excluir especifico \xDB\n"); 
-printf("\xDB 0- Sair               \xDB\n\xDB");
+printf("\xDB 7- Excluir o ultimo   \xDB\n\xDB 0- Sair               \xDB\n\xDB");
 linhas();printf("\xDB\n\n");
 while (op!=0){ 
 
@@ -35,40 +36,44 @@ scanf("%d",&op);
 switch(op){
 
  case 1: 
-	 printf("Informe o valor que sera incluso na lista: "); 
-	 scanf("%d",&v); 
-	 incluir(adm_lista, v); 
+	 	printf("Informe o valor que sera incluso na lista: "); 
+	 	scanf("%d",&v); 
+	 	incluir(adm_lista, v); 
  	break;
  case 2: 
- 	excluirInicio(adm_lista); 
+ 		excluirInicio(adm_lista); 
  	break;
  case 3: 
- 	mostrar(adm_lista); 
+ 		mostrar(adm_lista); 
  	break;
  case 4: 
- 	printf("Informe o valor que sera alterado na lista: "); 
- 	scanf("%d",&v); 
- 	printf("Informe o novo valor: "); 
- 	scanf("%d",&vn); 
- 	alterar(adm_lista, v, vn); 
+ 		printf("Informe o valor que sera alterado na lista: "); 
+ 		scanf("%d",&v); 
+ 		printf("Informe o novo valor: "); 
+ 		scanf("%d",&vn); 
+ 		alterar(adm_lista, v, vn); 
  	break;
  case 5: 
-	 printf("Informe o valor que sera pesquisado na lista: "); 
-	 scanf("%d",&v); 
-	 pesquisar(adm_lista,v); 
+		printf("Informe o valor que sera pesquisado na lista: "); 
+		scanf("%d",&v); 
+		pesquisar(adm_lista,v); 
 	 break;
  case 6: 
-	 printf("Informe o valor que sera excluido na lista: "); 
-	 scanf("%d",&v); 
-	 excluirEspecifico(adm_lista,v); 
+		printf("Informe o valor que sera excluido na lista: "); 
+		scanf("%d",&v); 
+		excluirEspecifico(adm_lista,v); 
 	 break;
+ case 7:
+ 		excluirFim(adm_lista); 	 
+	break; 
+	 
  case 0: 
  break;
  
  default:
- 	printf("opcao invalida");
- } /*system("cls");//windows Clrscr(); */ }
- /*incluir(adm_lista, 2); incluir(adm_lista, 4); incluir(adm_lista, 6); incluir(adm_lista, 8); incluir(adm_lista, 10); incluir(adm_lista, 12); mostrar(adm_lista); printf("\n\n"); excluirEspecifico(adm_lista, 8); printf("\n\n"); mostrar(adm_lista); pesquisar(adm_lista,10); alterar(adm_lista, 12, 25); printf("\n\n"); mostrar(adm_lista); excluirInicio(adm_lista); mostrar(adm_lista);*/ return 0;}
+ 	printf("\nopcao invalida");
+ } /*system("cls");windows Clrscr(); */ }
+  return 0;}
 
 
 void incluir(struct listaSimples *inicio,int v){ 
@@ -92,9 +97,9 @@ novo->pro = NULL;
 void mostrar(struct listaSimples *inicio){ 
 struct no *p; 
 p=inicio->ini; 
-printf("Atual estado da lista\n"); 
+printf("\nAtual estado da lista\n"); 
 if(p == NULL){ 
-	printf("Lista vazia"); 
+	printf("Lista vazia\n"); 
 }else if(p->pro == p){ 
 	printf("%d\n",p->valor); 
 }else{ 
@@ -110,7 +115,9 @@ void pesquisar(struct listaSimples *inicio,int v){
 struct no *p; 
 p=inicio->ini;
 
-if(p->valor == v){ 
+if(p == NULL){ 
+	printf("Lista vazia\n"); 
+ }else if(p->valor == v){ 
  printf("valor : %d\n",p->valor);
   }else{
    p = p->pro;
@@ -124,7 +131,9 @@ void alterar(struct listaSimples *inicio,int va,int vn){
 struct no *p; 
 p=inicio->ini; 
 
-if(p->valor == va){ 
+if(p == NULL){ 
+	printf("Lista vazia\n"); 
+ }else if(p->valor == va){ 
 	p->valor = vn; 
 }else{ 
 	p = p->pro; 
@@ -141,7 +150,9 @@ void excluirInicio(struct listaSimples *inicio){
 struct no *p,*ini,*novoIni; 
 p=inicio->ini; 
 ini = p; 
-if(p->pro == p){ 
+ if(p == NULL){ 
+	printf("Lista vazia\n"); 
+ }else if(p->pro == p){ 
 	free(ini); 
 	inicio->ini = NULL;
  }else{ 
@@ -155,12 +166,36 @@ if(p->pro == p){
 	 free(ini);
 }}
 
+void excluirFim(struct listaSimples *inicio){ 
+struct no *p,*ini,*novoFim; 
+p=inicio->ini; 
+ini = p; 
+if(p == NULL){ 
+	printf("Lista vazia\n"); 
+ }else if(p->pro == p){ 
+	free(ini); 
+	inicio->ini = NULL;
+ }else{ 
+	 p = p->pro; 
+	 while (p->pro->pro != inicio->ini ){ 
+	 	p = p->pro; 
+	} 
+	 novoFim = p;
+	 p = p->pro ;
+	 novoFim->pro = inicio->ini ;
+	 free(p);
+
+}}
+
+
 void excluirEspecifico(struct listaSimples *inicio,int v){
- /* ant,pro,excluido*/ 
+ /* funciona com os itens entre primeiro e ultimo */ 
  struct no *p,*ini,*excluir; 
  p=inicio->ini; 
  ini = p; 
- if(p->pro == p && p->valor == v){ 
+ if(p == NULL){ 
+	printf("Lista vazia\n"); 
+ }else if(p->pro == p && p->valor == v){ 
 	 free(ini); 
 	 inicio->ini = NULL; 
  }else{ 
