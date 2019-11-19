@@ -5,6 +5,7 @@ Apresenta as funções de:
   - Inclusão
   - Exclusão do primeiro elemento
   - Exclusão de determinado elemento
+  - Exclusão do ultimo elemento
   - Alteração
   - Visualização da lista
   - Verificação da existencia de determinado elemento
